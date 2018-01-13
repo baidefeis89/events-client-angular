@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+
+    <div class="navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" (click)="orderByDate()">
+            Order by date
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="orderByPrice()">
+            Order by price
+          </a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" 
+                placeholder="Search" aria-label="Search" 
+                [(ngModel)]="filter" name="filter">
+      </form>
+    </div>
+  </nav>
+
+<div class="row">
+  <ae-event-item *ngFor="let event of events | eventFilter:filter, index as i" 
+                [event]="event" 
+                (deleted)="removeEvent(i)"
+                class="col-6 mt-4"
+                ></ae-event-item>
+</div>

@@ -1,0 +1,50 @@
+<form (ngSubmit)="addEvent()" class="form-group" #eventForm="ngForm" novalidate>
+  <label for="name" class="mt-1">Name</label>
+  <input type="text" class="form-control" name="name" [(ngModel)]="newEvent.title"
+  placeholder="Enter name" required minlength="5" #nameModel="ngModel" 
+  [ngClass]="validClasses(nameModel,'is-valid','is-invalid')">
+
+  <div *ngIf="!nameModel.valid && nameModel.touched" class="alert mt-2 alert-danger">Name is required and at least 5 character long</div>
+
+  <label for="eventDate" class="mt-3">Date</label>
+  <input type="date" class="form-control" name="eventDate" [(ngModel)]="newEvent.date" required 
+  [aeDateAfter]="today" #dateModel="ngModel" [ngClass]="validClasses(dateModel,'is-valid','is-invalid')">
+
+  <div *ngIf="!dateModel.valid && dateModel.touched && dateModel.errors.required" class="alert mt-2 alert-danger">Date is required</div>
+
+  <div *ngIf="!dateModel.valid && dateModel.touched && dateModel.errors.minDate" class="alert mt-2 alert-danger">Min date: {{dateModel.errors.minDate}}</div>
+  
+  
+  <label for="description" class="mt-3">Description</label>
+  <textarea class="form-control" name="description" [(ngModel)]="newEvent.description"
+  placeholder="Enter description" rows="3" required #descriptionModel="ngModel"
+  [ngClass]="validClasses(descriptionModel,'is-valid','is-invalid')"></textarea>
+
+  <div *ngIf="!descriptionModel.valid && descriptionModel.touched" class="alert mt-2 alert-danger">
+    Description is required
+  </div>              
+  
+  <label for="price" class="mt-3">Price (in €)</label>
+  <input type="number" class="form-control" name="price" [(ngModel)]="newEvent.price"
+  placeholder="Enter price" required min="1" step="0.01" #priceModel="ngModel" 
+  [ngClass]="validClasses(priceModel,'is-valid','is-invalid')">
+  
+  <div *ngIf="!priceModel.valid && priceModel.touched" class="alert mt-2 alert-danger">Price is required</div>
+  
+  
+  <label for="file" class="mt-3">Image</label>
+  <input type="file" class="form-control" name="file" #fileImage (change)="changeImage(fileImage)"
+  #fileModel required 
+  [ngClass]="{'is-valid':fileModel.__zone_symbol__changefalse[0].state === 'scheduled' && fileModel.__zone_symbol__changefalse[0].runCount > 0,
+              'is-invalid':fileModel.__zone_symbol__changefalse[0].state === 'running'}">
+
+  <div class="alert alert-danger mt-4" 
+        role="alert" *ngIf="fileModel.__zone_symbol__changefalse[0].state === 'running'">
+    File is required
+  </div>
+  
+  <button type="submit" class="btn btn-primary mt-3" 
+  [disabled]="eventForm.invalid">
+    Create
+  </button>
+</form>
