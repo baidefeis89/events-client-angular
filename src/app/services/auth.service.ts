@@ -8,7 +8,7 @@ export class AuthService {
 
   logged: boolean;
   @Output() $loginEmitter = new EventEmitter<boolean>();
-  urlServer: string = 'http://arturober.com/svtickets-services/';
+  urlServer: string = 'http://localhost:8080/';
 
   constructor(private http:HttpClient) { }
 

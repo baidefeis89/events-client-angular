@@ -8,7 +8,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 @Injectable()
 export class EventService {
 
-  urlServer: string = 'http://arturober.com/svtickets-services/';
+  urlServer: string = 'http://localhost:8080/';
 
   constructor(private http:HttpClient) { }
 
@@ -41,7 +41,7 @@ export class EventService {
     event.lat = 0;
     event.lng = 0;
     
-    return this.http.post(`${this.urlServer}events/`, event).map( (response: {ok: boolean, errors: string[]}) => {
+    return this.http.post(`${this.urlServer}events`, event).map( (response: {ok: boolean, errors: string[]}) => {
       if (response.ok) return response.ok;
       throw response.errors;
     });
