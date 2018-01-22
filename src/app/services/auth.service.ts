@@ -27,6 +27,19 @@ export class AuthService {
     });
   }
 
+  register(data): Observable<boolean> {
+    return this.http.post<{ok: boolean, result: {id: number, token: string}, error?: string}>(`${this.urlServer}auth/register`, JSON.stringify(data))
+    .map( response => {
+      if (response.ok) {
+        localStorage.setItem('token', response.result.token);
+        this.logged = true;
+        this.$loginEmitter.emit(true);
+        return true;
+      }
+      throw response.error;
+    });
+  }
+
   logout() {
     localStorage.removeItem('token');
     this.logged = false;

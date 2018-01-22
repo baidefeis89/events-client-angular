@@ -12,5 +12,6 @@
   <div class="alert alert-danger" role="alert" *ngIf="error">
     Email or password incorrect.
   </div>
+  <a [routerLink]="['/auth/register']" class="btn btn-secondary">Register</a>
   <button type="submit" class="btn btn-primary">Login</button>
 </form>
