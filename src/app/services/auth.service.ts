@@ -65,4 +65,34 @@ export class AuthService {
     }
   }
 
+  loggedGoogle(token: string): Observable<boolean> {
+    localStorage.setItem('token', token);
+
+    return this.http.get<{ok: boolean, token?: string, error?: string}>(`${this.urlServer}auth/google`)
+    .map( res => {
+      if (res.ok) {
+        localStorage.setItem('token', res.token);
+        this.logged = true;
+        this.$loginEmitter.emit(true);
+        return true;
+      }
+      else throw res.error;
+    });
+  }
+
+  loggedFacebook(token: string): Observable<boolean> {
+    localStorage.setItem('token', token);
+
+    return this.http.get<{ok: boolean, token?: string, error?: string}>(`${this.urlServer}auth/facebook`)
+    .map( res => {
+      if (res.ok) {
+        localStorage.setItem('token', res.token);
+        this.logged = true;
+        this.$loginEmitter.emit(true);
+        return true;
+      }
+      else throw res.error;
+    })
+  }
+
 }

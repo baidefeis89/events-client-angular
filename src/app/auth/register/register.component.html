@@ -45,6 +45,15 @@
   <button type="submit" class="btn btn-primary">Create account</button>
 </form>
 
+<button aeGoogleLogin (loginOk)="loggedGoogle($event)" (loginError)="showError($event)">
+  Login with Google
+</button>
+
+<button aeFbLogin [scopes]="['email', 'public_profile']"
+(loginOk)="loggedFacebook($event)" (loginError)="showError($event)">
+Login with Facebook
+</button>
+
 <div *ngIf="error" class="alert alert-danger mt-3" role="alert">
   {{error}}
 </div>

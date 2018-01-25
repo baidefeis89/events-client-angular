@@ -51,4 +51,27 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  loggedGoogle(user: gapi.auth2.GoogleUser) {
+    let token = user.getAuthResponse(true).access_token;
+
+    this.auth.loggedGoogle(token).subscribe( response => {
+      if (response) this.router.navigate(['/events']);
+    }, error => {
+      this.error = error;
+    });
+  }
+
+  loggedFacebook(resp: FB.LoginStatusResponse) {
+    let token = resp.authResponse.accessToken;
+
+    this.auth.loggedFacebook(token).subscribe( response => {
+      if (response) this.router.navigate(['/events']);
+    }, error => {
+      this.error = error;
+    });
+  }
+
+  showError(error) {
+    console.log('Error:',error);
+  }
 }
