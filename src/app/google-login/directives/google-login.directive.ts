@@ -1,5 +1,6 @@
 import { LoadGoogleApiService } from '../services/load-google-api.service';
 import { Directive, EventEmitter, ElementRef, Output } from '@angular/core';
+import { NgZone } from '@angular/core';
 
 @Directive({
   selector: '[aeGoogleLogin]'
@@ -9,12 +10,12 @@ export class GoogleLoginDirective {
   @Output() loginError: EventEmitter<string> = new EventEmitter<string>();
   @Output() loadingEnd: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private el: ElementRef, loadService: LoadGoogleApiService) {
+  constructor(private el: ElementRef, loadService: LoadGoogleApiService, private ngZone: NgZone) {
     loadService.getAuthApi().subscribe(
       auth2 => {
         auth2.attachClickHandler(el.nativeElement, {},
          (user: gapi.auth2.GoogleUser) => {
-          this.loginOk.emit(user);
+          this.ngZone.run( () => this.loginOk.emit(user));
          },
         error => this.loginError.emit(error));
         this.loadingEnd.emit();
