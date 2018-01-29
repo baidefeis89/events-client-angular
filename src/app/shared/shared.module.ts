@@ -1,16 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DateAfterDirective } from './date-after/date-after.directive';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    NgbModule.forRoot()
   ],
   declarations: [
-    DateAfterDirective
+    DateAfterDirective,
+    ConfirmModalComponent
+  ],
+  entryComponents: [
+    ConfirmModalComponent
   ],
   exports: [
-    DateAfterDirective
+    DateAfterDirective,
+    ConfirmModalComponent
   ]
 })
 export class SharedModule { }
