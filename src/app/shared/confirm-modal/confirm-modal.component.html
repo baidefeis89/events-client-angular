@@ -3,11 +3,14 @@
   <button type="button" class="close" aria-label="Close"
   (click)="activeModal.dismiss()"> <span aria-hidden="true">&times;</span>
   </button>
-  </div>
-  <div class="modal-body"> 
-    <p>{{body}}</p>
-  </div>
-  <div class="modal-footer">
+</div>
+<div class="modal-body"> 
+  <p>{{body}}</p>
+</div>
+<div *ngIf="!info" class="modal-footer">
   <button type="button" class="btn btn-success" (click)="activeModal.close(true)">Yes</button>
   <button type="button" class="btn btn-danger" (click)="activeModal.close(false)">No</button>
+</div>
+<div *ngIf="info" class="modal-footer">
+  <button type="button" class="btn btn-block btn-primary" (click)="activeModal.close(true)">Accept</button>
 </div>
