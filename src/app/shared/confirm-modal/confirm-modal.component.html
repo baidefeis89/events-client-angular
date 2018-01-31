@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body"> 
-  <p>{{body}}</p>
+  <p *ngFor="let line of body">{{line}}</p>
 </div>
 <div *ngIf="!info" class="modal-footer">
   <button type="button" class="btn btn-success" (click)="activeModal.close(true)">Yes</button>

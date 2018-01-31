@@ -55,4 +55,12 @@ export class EventService {
     });
   }
 
+  attendEvent(idEvent: number, tickets: number): Observable<boolean> {
+    return this.http.post(`${this.urlServer}events/attend/${idEvent}`, {number: tickets})
+      .map( (response: {ok: boolean, result: any, error?: string}) => {
+        if (response.ok) return response.ok;
+        throw response.error;
+      });
+  }
+
 }

@@ -8,7 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 })
 export class ConfirmModalComponent implements OnInit {
   @Input() title: string;
-  @Input() body: string;
+  @Input() body: string[];
   @Input() info: boolean;
 
   constructor(public activeModal: NgbActiveModal) { }

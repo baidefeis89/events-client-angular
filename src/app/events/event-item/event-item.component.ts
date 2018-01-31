@@ -13,7 +13,7 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./event-item.component.css']
 })
 export class EventItemComponent implements OnInit {
-
+  
   @Input() event: Ievent;
   @Output() deleted: EventEmitter<void> = new EventEmitter<void>();
   
@@ -25,9 +25,11 @@ export class EventItemComponent implements OnInit {
   }
 
   removeEvent(){
+    let body = [];
+    body.push('Do you want to remove this event?')
     const modalRef = this.modal.open(ConfirmModalComponent); 
     modalRef.componentInstance.title = 'Delete event'; 
-    modalRef.componentInstance.body = 'Do you want to remove this event?'; 
+    modalRef.componentInstance.body = body; 
 
     modalRef.result.then( response => {
       if (response) this.deleted.emit();
