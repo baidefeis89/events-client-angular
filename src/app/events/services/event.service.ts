@@ -36,14 +36,10 @@ export class EventService {
     });
   }
 
-  addEvent(event: Ievent): Observable<boolean> {
-    event.address = 'ADDRESS';
-    event.lat = 0;
-    event.lng = 0;
-    
-    return this.http.post(`${this.urlServer}events`, event).map( (response: {ok: boolean, errors: string[]}) => {
+  addEvent(event: Ievent): Observable<boolean> { 
+    return this.http.post(`${this.urlServer}events`, event).map( (response: {ok: boolean, error?: string}) => {
       if (response.ok) return response.ok;
-      throw response.errors;
+      throw response.error;
     });
   }
 

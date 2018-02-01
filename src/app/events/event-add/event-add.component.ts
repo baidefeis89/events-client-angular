@@ -13,8 +13,8 @@ export class EventAddComponent implements OnInit {
 
   @Output() eventAdded: EventEmitter<Ievent> = new EventEmitter<Ievent>();
   newEvent: Ievent;
-  error: boolean = false;
-  errors: string[] = [];
+  //errorSuccess: boolean = false;
+  error: string = null;
   today = new Date();
 
   constructor(private router:Router,
@@ -28,8 +28,8 @@ export class EventAddComponent implements OnInit {
     this.eventService.addEvent(this.newEvent).subscribe( response => {
       if (response) this.router.navigate(['/events']);
     }, error => {
-      this.errors = error;
-      this.error = true;
+      this.error = error;
+      //this.error = true;
     });
   }
 
@@ -48,7 +48,10 @@ export class EventAddComponent implements OnInit {
       image: '',
       date: '',
       description: '',
-      price: 0
+      price: 0,
+      lat: 0,
+      lng: 0,
+      address: ''
     };
   }
 
@@ -57,6 +60,12 @@ export class EventAddComponent implements OnInit {
       [validClass]: ngModel.touched && ngModel.valid,
       [errorClass]: ngModel.touched && ngModel.invalid
     };
+  }
+
+  changePosition(pos: google.maps.LatLng) { console.log(pos);
+    this.newEvent.lat = pos.lat();
+    this.newEvent.lng = pos.lng();
+    console.log('lat:',pos.lat(),' lng:',pos.lng());
   }
 
 }

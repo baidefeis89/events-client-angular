@@ -4,7 +4,7 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "module": "es2015",
-    "types": ["gapi","gapi.auth2","FB","paypal-rest-sdk"]
+    "types": ["gapi","gapi.auth2","FB","paypal-rest-sdk","googlemaps"]
   },
   "exclude": [
     "test.ts",

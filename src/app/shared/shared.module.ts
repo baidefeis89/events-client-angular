@@ -4,6 +4,7 @@ import { DateAfterDirective } from './date-after/date-after.directive';
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AgmCoreModule } from "@agm/core";
+import { GmapsAutocompleteDirective } from './gmaps-autocomplete/gmaps-autocomplete.directive';
 
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
@@ -12,12 +13,14 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     CommonModule,
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCTa_i6W9Hse6NcxF3IUUQjCFHWSdtut6A'
+      apiKey: 'AIzaSyCTa_i6W9Hse6NcxF3IUUQjCFHWSdtut6A',
+      libraries: ['places']
     })
   ],
   declarations: [
     DateAfterDirective,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    GmapsAutocompleteDirective
   ],
   entryComponents: [
     ConfirmModalComponent
@@ -25,7 +28,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
   exports: [
     DateAfterDirective,
     ConfirmModalComponent,
-    AgmCoreModule
+    AgmCoreModule,
+    GmapsAutocompleteDirective
   ]
 })
 export class SharedModule { }
