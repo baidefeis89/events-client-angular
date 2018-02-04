@@ -59,4 +59,12 @@ export class EventService {
       });
   }
 
+  editEvent(event: Ievent): Observable<boolean> {
+    return this.http.put(`${this.urlServer}events/${event.id}`, event)
+      .map( (response: {ok: boolean, result?: string, error?: string}) => {
+        if (response.ok) return response.ok;
+        throw response.error;
+      });
+  }
+
 }

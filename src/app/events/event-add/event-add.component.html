@@ -55,8 +55,12 @@
     
   <div *ngIf="error" class="alert mt-2 alert-danger">{{error}}</div>
   
-  <button type="submit" class="btn btn-primary mt-3" 
+  <button *ngIf="!newEvent.id" type="submit" class="btn btn-primary mt-3" 
   [disabled]="eventForm.invalid">
     Create
+  </button>
+  <button *ngIf="newEvent.id" type="submit" class="btn btn-primary mt-3" 
+  [disabled]="eventForm.invalid || eventForm.pristine">
+    Save changes
   </button>
 </form>

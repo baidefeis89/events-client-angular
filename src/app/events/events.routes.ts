@@ -15,6 +15,13 @@ const EVENTS_ROUTES: Routes = [
         resolve: {
             event: EventResolver
         } 
+    },
+    { 
+        path: 'edit/:id', 
+        component: EventAddComponent,
+        resolve: {
+            event: EventResolver
+        }
     }
 
 ];

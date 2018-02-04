@@ -1,4 +1,9 @@
 <ae-event-item [event]="event" class="card" (deleted)="removeEvent()"></ae-event-item>
+
+<a class="btn btn-warning mt-3" *ngIf="event.mine" [routerLink]="['/events/edit', event.id]">
+Edit event
+</a>
+
 <div class="buy mt-3">
     <h3>Buy tickets</h3>
     <p>

@@ -34,6 +34,10 @@ export class EventDetailsComponent implements OnInit {
     });
   }
 
+  editEvent() {
+    this.router.navigate(['/events/edit/' + this.event.id]);
+  }
+
   modCantidad(mod) {
     this.cantidad += mod;
     this.check();
