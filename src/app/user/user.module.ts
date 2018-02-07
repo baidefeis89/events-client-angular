@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { UserService } from './services/user.service';
 
@@ -15,7 +16,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
   imports: [
     CommonModule,
     SharedModule,
-    USER_ROUTING
+    USER_ROUTING,
+    FormsModule
   ],
   declarations: [
     ProfileComponent,

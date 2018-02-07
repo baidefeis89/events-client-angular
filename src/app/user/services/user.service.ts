@@ -23,36 +23,42 @@ export class UserService {
             }
             throw response.error;
         });
-    
+
     }
 
-    getMe(): Observable<Iuser> {
-        return this.http.get(`${this.urlServer}users/me`).map( (response: {ok: boolean, result?: Iuser, error?: string}) => {
-            if (response.ok) {
-                response.result.avatar = `${this.urlServer}img/users/${response.result.avatar}`;
-                return response.result;
-            }
+    editUser(user: Iuser): Observable<boolean> {
+        let data = {
+            email: user.email,
+            name: user.name
+        };
+
+        return this.http.put(`${this.urlServer}users/me`, data)
+            .map( (response: {ok:boolean, error?: string}) => {
+                if (response.ok) return response.ok;
+                throw response.error;
+            });
+    }
+
+    editAvatar(user: Iuser): Observable<boolean> {
+        let data = {
+            avatar: user.avatar
+        };
+
+        return this.http.put(`${this.urlServer}users/me/avatar`, data)
+            .map( (response: {ok:boolean, error?: string}) => {
+                if (response.ok) return response.ok;
+                throw response.error;
+            });
+    }
+
+    editPassword(data): Observable<boolean> {
+        return this.http.put(`${this.urlServer}users/me/password`, data)
+        .map( (response: {ok:boolean, error?: string}) => {
+            if (response.ok) return response.ok;
             throw response.error;
         });
     }
 
 
-  getEvent(id: number): Observable<Iuser> {
-
-    return this.http.get(`${this.urlServer}events/${id}`).map( (response: {user: Iuser, ok: boolean}) => {
-      if (response.ok) {
-        response.user.avatar = `${this.urlServer}img/events/${response.user.avatar}`;
-        return response.user;
-      }
-    });
-  }
-
-  editEvent(event: Iuser): Observable<boolean> {
-    return this.http.put(`${this.urlServer}events/${event.id}`, event)
-      .map( (response: {ok: boolean, result?: string, error?: string}) => {
-        if (response.ok) return response.ok;
-        throw response.error;
-      });
-  }
 
 }

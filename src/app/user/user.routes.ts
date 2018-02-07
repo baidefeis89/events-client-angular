@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 import { ProfileComponent } from "./profile/profile.component";
 import { UserResolver } from "./services/user-resolver.service";
+import { EditProfileComponent } from "./edit-profile/edit-profile.component";
 
 const USER_ROUTES: Routes = [
     { 
@@ -10,27 +11,18 @@ const USER_ROUTES: Routes = [
             user: UserResolver
         } 
     },{
+        path: 'edit',
+        component: EditProfileComponent,
+        resolve: {
+            user: UserResolver
+        }
+    },{
         path: ':id',
         component: ProfileComponent,
         resolve: {
             user: UserResolver
         }
     }
-    /*{ path: 'new', component: EventAddComponent },
-    { 
-        path: 'details/:id', 
-        component: EventDetailsComponent, 
-        resolve: {
-            event: EventResolver
-        } 
-    },
-    { 
-        path: 'edit/:id', 
-        component: EventAddComponent,
-        resolve: {
-            event: EventResolver
-        }
-    }*/
 
 ];
 
