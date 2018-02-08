@@ -7,6 +7,13 @@
     <h4 class="card-title"><a [routerLink]="['/events/details', event.id]">{{event.title}}</a></h4>
     <p class="card-text" [innerText]="event.description"></p>
     <button *ngIf="event.mine" class="btn btn-danger float-right" (click)="removeEvent()">Delete</button>
+    <div class="float-left mr-4 text-center">
+        <a [routerLink]="['/profile', event.creator.id]"><img class="rounded-circle" style="width: 50px;" 
+          src="http://localhost:8080/img/users/{{event.creator.avatar}}" alt=""></a>
+        <div>
+          <small>{{event.creator.name}}</small>
+        </div>
+    </div>
   </div>
   <div class="card-footer text-muted">
     <div class="row">

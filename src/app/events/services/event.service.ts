@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { Show } from '../../shared/show';
 
 @Injectable()
 export class EventService {
@@ -12,9 +13,15 @@ export class EventService {
 
   constructor(private http:HttpClient) { }
 
-  getEvents(): Observable<Ievent[]> {
+  getEvents(show: Show, id?:number): Observable<Ievent[]> {
+    let filter;
 
-    return this.http.get(`${this.urlServer}events`).map( (response: {events: Ievent[], ok: boolean}) => {
+    if (id) 
+      filter = '/user/' + id;
+    else 
+      filter = show === Show.ALL ? '' : '/' + Show[show].toLocaleLowerCase();
+
+    return this.http.get(`${this.urlServer}events${filter}`).map( (response: {events: Ievent[], ok: boolean}) => {
       if(response.ok) {
         response.events.map( ev => {
           ev.image = `${this.urlServer}img/events/${ev.image}`;
@@ -27,7 +34,6 @@ export class EventService {
   }
 
   getEvent(id: number): Observable<Ievent> {
-
     return this.http.get(`${this.urlServer}events/${id}`).map( (response: {event: Ievent, ok: boolean}) => {
       if (response.ok) {
         response.event.image = `${this.urlServer}img/events/${response.event.image}`;

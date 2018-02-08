@@ -27,4 +27,6 @@
                 (deleted)="removeEvent(i)"
                 class="col-6 mt-4"
                 ></ae-event-item>
+                
 </div>
+<div class="alert alert-info mt-3" *ngIf="events.length < 1">No events to show</div>

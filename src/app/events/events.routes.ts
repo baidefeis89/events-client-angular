@@ -6,8 +6,10 @@ import { EventAddComponent } from "./event-add/event-add.component";
 
 import { EventResolver } from "./services/event-resolver.service";
 
+import { Show } from "../shared/show";
+
 const EVENTS_ROUTES: Routes = [
-    { path: '', component: EventsShowComponent },
+    { path: '', component: EventsShowComponent, data: { show: Show.ALL} },
     { path: 'new', component: EventAddComponent },
     { 
         path: 'details/:id', 
@@ -22,6 +24,20 @@ const EVENTS_ROUTES: Routes = [
         resolve: {
             event: EventResolver
         }
+    },
+    {
+        path: 'mine',
+        component: EventsShowComponent,
+        data: { show: Show.MINE}
+    },
+    {
+        path: 'assist',
+        component: EventsShowComponent,
+        data: { show: Show.ATTEND }
+    },
+    {
+        path: 'user/:id',
+        component: EventsShowComponent
     }
 
 ];

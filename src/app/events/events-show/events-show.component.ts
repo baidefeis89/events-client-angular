@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+
 import { Ievent } from "../interfaces/ievent";
 import { EventService } from "../services/event.service";
 import { EventFilterPipe } from "../pipes/event-filter.pipe";
+
+import { Show } from '../../shared/show';
 
 @Component({
   selector: 'ae-events-show',
@@ -13,12 +17,17 @@ export class EventsShowComponent implements OnInit {
   events: Ievent[] = [];
   newEvent: Ievent;
   filter = '';
+  show: Show;
+  userId: number;
   
-  constructor(private eventService: EventService) { 
+  constructor(private eventService: EventService, private activatedRoute: ActivatedRoute) { 
   }
 
   ngOnInit() {
-    this.eventService.getEvents().subscribe( response => {
+    this.show = this.activatedRoute.snapshot.data['show'];
+    this.userId = this.activatedRoute.snapshot.params['id'];
+
+    this.eventService.getEvents(this.show, this.userId).subscribe( response => {
       this.events = response;
     }, error => {
       console.error(error);
