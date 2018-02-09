@@ -55,9 +55,9 @@ export class EventDetailsComponent implements OnInit {
         this.paymentStatus = ok; 
         
         let body = [];
-        body.push(`Evento: ${this.event.title}`);
-        body.push(`Numero de entradas: ${this.cantidad}`);
-        body.push(`Precio total: ${this.amount}€`);
+        body.push(`Event: ${this.event.title}`);
+        body.push(`Number of tickets: ${this.cantidad}`);
+        body.push(`Amount: ${this.amount}€`);
 
         const modalRef = this.modal.open(ConfirmModalComponent); 
         modalRef.componentInstance.title = this.payedMessage; 

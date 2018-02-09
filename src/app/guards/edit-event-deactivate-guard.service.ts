@@ -17,11 +17,16 @@ export class EditEventDeactivateGuard implements CanDeactivate<EventAddComponent
     
     if (component.form.dirty && !component.submit) {
       const modalRef = this.modal.open(ConfirmModalComponent); 
-      modalRef.componentInstance.title = 'Leave this page?'; 
-      modalRef.componentInstance.body = ['Do you want to leave this page?. Changes can be lost']; 
+      modalRef.componentInstance.title = 'Save changes?'; 
+      modalRef.componentInstance.body = ['Do you want to save changes before exit?']; 
   
-      return modalRef.result.then( result => result)
-                            .catch( err => err);
+      return modalRef.result.then( result => {
+        if (component.form.valid)
+          component.addEvent();
+        return false;
+      }).catch( error => {
+        return true;
+      })
     } else {
       return true;
     }
