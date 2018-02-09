@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   error: boolean = false;
+  errorMessage:string = '';
   position: {
     lat: number,
     lng: number
@@ -34,6 +35,26 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.email, this.password, this.position).subscribe( value => {
       if (value) this.router.navigate(['/events']);
       else this.error = true;
+    });
+  }
+
+  loggedGoogle(user: gapi.auth2.GoogleUser) {
+    let token = user.getAuthResponse(true).access_token;
+
+    this.auth.loggedGoogle(token).subscribe( response => {
+      if (response) this.router.navigate(['/events']);
+    }, error => {
+      this.error = error;
+    });
+  }
+
+  loggedFacebook(resp: FB.LoginStatusResponse) {
+    let token = resp.authResponse.accessToken;
+
+    this.auth.loggedFacebook(token).subscribe( response => {
+      if (response) this.router.navigate(['/events']);
+    }, error => {
+      this.errorMessage = error;
     });
   }
 

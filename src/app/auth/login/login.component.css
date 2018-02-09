@@ -1,0 +1,12 @@
+.btn-facebook, .btn-google {
+    color: white;
+    display: block;
+}
+
+.btn-facebook {
+    background-color: #2e4fb5;
+}
+
+.btn-google {
+    background-color: #c12e26;
+}
