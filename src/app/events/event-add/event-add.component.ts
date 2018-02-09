@@ -28,7 +28,6 @@ export class EventAddComponent implements OnInit {
   ngOnInit() {  
     this.event = this.activatedRoute.snapshot.data['event'];
     this.setVoid();
-    console.log(this.activatedRoute);
   }
 
   addEvent() {
@@ -70,7 +69,7 @@ export class EventAddComponent implements OnInit {
         image: '',
         date: '',
         description: '',
-        price: 0,
+        price: 1,
         lat: 0,
         lng: 0,
         address: ''
@@ -90,10 +89,8 @@ export class EventAddComponent implements OnInit {
   }
 
   changePosition(pos: google.maps.LatLng) { 
-    console.log(pos);
     this.newEvent.lat = pos.lat();
     this.newEvent.lng = pos.lng();
-    console.log('lat:',pos.lat(),' lng:',pos.lng());
   }
 
 }
