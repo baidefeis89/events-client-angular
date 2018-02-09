@@ -12,8 +12,8 @@ export class AuthService {
 
   constructor(private http:HttpClient) { }
 
-  login(email: string, password: string): Observable<boolean> {
-    let data = {email: email, password: password};
+  login(email: string, password: string, position: {lat: number, lng: number}): Observable<boolean> {
+    let data = {email: email, password: password, lat: position.lat, lng: position.lng};
 
     return this.http.post<{token: string, ok: boolean}>(`${this.urlServer}auth/login`, JSON.stringify(data))
     .map( response => {

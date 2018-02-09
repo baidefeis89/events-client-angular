@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { GoogleLoginModule } from '../google-login/google-login.module';
 import { FacebookLoginModule } from '../facebook-login/facebook-login.module';
+import { GeolocationService } from './services/geolocation.service';
 
 @NgModule({
   imports: [
@@ -24,6 +25,9 @@ import { FacebookLoginModule } from '../facebook-login/facebook-login.module';
   declarations: [
     LoginComponent,
     RegisterComponent
+  ],
+  providers: [
+    GeolocationService
   ]
 })
 export class AuthModule { }

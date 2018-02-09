@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { GeolocationService } from '../services/geolocation.service';
 
 @Component({
   selector: 'ae-register',
@@ -17,14 +18,18 @@ export class RegisterComponent implements OnInit {
     email2: '',
     password: '',
     avatar: '',
-    lat: '',
-    lng: ''
-  }
+    lat: null,
+    lng: null
+  };
 
   constructor( private auth: AuthService, 
-               private router: Router) { }
+               private router: Router, private geolocation: GeolocationService) { }
 
   ngOnInit() {
+    this.geolocation.getLocation().subscribe( res => {
+      this.user.lat = res.lat;
+      this.user.lng = res.lng;
+    });
   }
 
   register() {
