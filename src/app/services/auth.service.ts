@@ -8,12 +8,12 @@ export class AuthService {
 
   logged: boolean;
   @Output() $loginEmitter = new EventEmitter<boolean>();
-  urlServer: string = 'http://arturober.com/svtickets-services/';
+  urlServer: string = 'http://localhost:8080/';
 
   constructor(private http:HttpClient) { }
 
-  login(email: string, password: string): Observable<boolean> {
-    let data = {email: email, password: password};
+  login(email: string, password: string, position: {lat: number, lng: number}): Observable<boolean> {
+    let data = {email: email, password: password, lat: position.lat, lng: position.lng};
 
     return this.http.post<{token: string, ok: boolean}>(`${this.urlServer}auth/login`, JSON.stringify(data))
     .map( response => {
@@ -24,6 +24,19 @@ export class AuthService {
         return true;
       } 
       return false;
+    });
+  }
+
+  register(data): Observable<boolean> {
+    return this.http.post<{ok: boolean, result: {id: number, token: string}, error?: string}>(`${this.urlServer}auth/register`, JSON.stringify(data))
+    .map( response => {
+      if (response.ok) {
+        localStorage.setItem('token', response.result.token);
+        this.logged = true;
+        this.$loginEmitter.emit(true);
+        return true;
+      }
+      throw response.error;
     });
   }
 
@@ -50,6 +63,36 @@ export class AuthService {
     } else {
       return Observable.of(false);
     }
+  }
+
+  loggedGoogle(token: string): Observable<boolean> {
+    localStorage.setItem('token', token);
+
+    return this.http.get<{ok: boolean, token?: string, error?: string}>(`${this.urlServer}auth/google`)
+    .map( res => {
+      if (res.ok) {
+        localStorage.setItem('token', res.token);
+        this.logged = true;
+        this.$loginEmitter.emit(true);
+        return true;
+      }
+      else throw res.error;
+    });
+  }
+
+  loggedFacebook(token: string): Observable<boolean> {
+    localStorage.setItem('token', token);
+
+    return this.http.get<{ok: boolean, token?: string, error?: string}>(`${this.urlServer}auth/facebook`)
+    .map( res => {
+      if (res.ok) {
+        localStorage.setItem('token', res.token);
+        this.logged = true;
+        this.$loginEmitter.emit(true);
+        return true;
+      }
+      else throw res.error;
+    })
   }
 
 }

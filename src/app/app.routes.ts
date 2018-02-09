@@ -8,6 +8,7 @@ import { PreloadingStrategy, PreloadAllModules } from "@angular/router";
 const app_routes: Routes = [
     { path: 'auth', canActivate: [LogoutActivateGuard], loadChildren: './auth/auth.module#AuthModule' },
     { path: 'events', canActivate: [LoginActivateGuard], loadChildren: './events/events.module#EventsModule' },
+    { path: 'profile', canActivate: [LoginActivateGuard], loadChildren: './user/user.module#UserModule' },
     { path: '', pathMatch: 'full', redirectTo: 'auth/login' },
     { path: '**', redirectTo: 'auth/login' }
 

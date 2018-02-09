@@ -12,5 +12,19 @@
   <div class="alert alert-danger" role="alert" *ngIf="error">
     Email or password incorrect.
   </div>
+  <a [routerLink]="['/auth/register']" class="btn btn-secondary">Register</a>
   <button type="submit" class="btn btn-primary">Login</button>
 </form>
+
+<button class="btn btn-facebook mt-3" aeFbLogin [scopes]="['email', 'public_profile']"
+(loginOk)="loggedFacebook($event)" (loginError)="showError($event)">
+Login with Facebook
+</button>
+
+<button class="btn btn-google mt-1" aeGoogleLogin (loginOk)="loggedGoogle($event)" (loginError)="showError($event)">
+  Login with Google
+</button>
+
+<div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+  {{errorMessage}}
+</div>

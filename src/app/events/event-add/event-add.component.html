@@ -33,18 +33,37 @@
   
   
   <label for="file" class="mt-3">Image</label>
+  <div class="image">
+    <img [src]="newEvent.image" alt="">
+  </div>
   <input type="file" class="form-control" name="file" #fileImage (change)="changeImage(fileImage)"
-  #fileModel required 
-  [ngClass]="{'is-valid':fileModel.__zone_symbol__changefalse[0].state === 'scheduled' && fileModel.__zone_symbol__changefalse[0].runCount > 0,
-              'is-invalid':fileModel.__zone_symbol__changefalse[0].state === 'running'}">
+  #fileModel required [ngClass]="{'is-invalid': fileImage.files.length === 0 && fileImage.touched,
+                                  'is-valid': fileImage.files.length > 0 && fileImage.touched}">
+
 
   <div class="alert alert-danger mt-4" 
         role="alert" *ngIf="fileModel.__zone_symbol__changefalse[0].state === 'running'">
     File is required
   </div>
+
+  <div>
+    <label for="place" class="mt-3">Place</label>
+    <input [(ngModel)]="newEvent.address" class="form-control" name="place" type="text" 
+    aeGmapsAutocomplete (placeChanged)="changePosition($event)" #placeModel="ngModel" required>
+    <div *ngIf="!placeModel.valid && placeModel.touched" class="alert mt-2 alert-danger">Place is required</div>
+    <agm-map [latitude]="newEvent.lat" [longitude]="newEvent.lng" [zoom]="15">
+      <agm-marker [latitude]="newEvent.lat" [longitude]="newEvent.lng"></agm-marker>
+    </agm-map>
+  </div>
+    
+  <div *ngIf="error" class="alert mt-2 alert-danger">{{error}}</div>
   
-  <button type="submit" class="btn btn-primary mt-3" 
+  <button *ngIf="!newEvent.id" type="submit" class="btn btn-primary mt-3" 
   [disabled]="eventForm.invalid">
     Create
+  </button>
+  <button *ngIf="newEvent.id" type="submit" class="btn btn-primary mt-3" 
+  [disabled]="eventForm.invalid || eventForm.pristine">
+    Save changes
   </button>
 </form>
