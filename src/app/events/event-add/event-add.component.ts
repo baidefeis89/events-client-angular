@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { Ievent } from "../interfaces/ievent";
 import { Router, ActivatedRoute } from "@angular/router";
 import { EventService } from "../services/event.service";
@@ -14,18 +14,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 export class EventAddComponent implements OnInit {
 
   @Output() eventAdded: EventEmitter<Ievent> = new EventEmitter<Ievent>();
+  @ViewChild('eventForm') form;
   event: Ievent;
   newEvent: Ievent;
-  //errorSuccess: boolean = false;
   error: string = null;
   today = new Date();
+  submit: boolean = false;
 
   constructor(private router:Router, private modal: NgbModal,
               private activatedRoute: ActivatedRoute,
               private eventService:EventService) { }
 
-  ngOnInit() {
-    //this.event = this.activatedRoute.snapshot.params['id'];    
+  ngOnInit() {  
     this.event = this.activatedRoute.snapshot.data['event'];
     this.setVoid();
     console.log(this.activatedRoute);
@@ -39,8 +39,9 @@ export class EventAddComponent implements OnInit {
         modalRef.componentInstance.title = 'Event updated'; 
         modalRef.componentInstance.body = ['Event information has been updated'];
         modalRef.componentInstance.info = true;
+        this.submit = true;
     
-          modalRef.result.then( () =>  this.router.navigate(['/events/details', this.event.id]) );
+        modalRef.result.then( () =>  this.router.navigate(['/events/details', this.event.id]) );
         }
       })
     } else {

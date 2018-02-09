@@ -7,6 +7,7 @@ import { EventAddComponent } from "./event-add/event-add.component";
 import { EventResolver } from "./services/event-resolver.service";
 
 import { Show } from "../shared/show";
+import { EditEventDeactivateGuard } from "../guards/edit-event-deactivate-guard.service";
 
 const EVENTS_ROUTES: Routes = [
     { path: '', component: EventsShowComponent, data: { show: Show.ALL} },
@@ -21,6 +22,7 @@ const EVENTS_ROUTES: Routes = [
     { 
         path: 'edit/:id', 
         component: EventAddComponent,
+        canDeactivate: [EditEventDeactivateGuard],
         resolve: {
             event: EventResolver
         }

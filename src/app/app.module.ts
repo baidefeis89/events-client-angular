@@ -6,6 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 //Custom Modules
 import { MenuModule } from "./menu/menu.module";
+import { SharedModule } from './shared/shared.module';
 
 //Components
 import { AppComponent } from './app.component';
@@ -20,6 +21,7 @@ import { AuthService } from "./services/auth.service";
 import { LoginActivateGuard } from "./guards/login-activate-guard.service";
 import { LogoutActivateGuard } from "./guards/logout-activate-guard.service";
 import { AuthInterceptor } from './services/auth-token-interceptor.service';
+import { EditEventDeactivateGuard } from './guards/edit-event-deactivate-guard.service';
 
 @NgModule({
   declarations: [
@@ -30,12 +32,14 @@ import { AuthInterceptor } from './services/auth-token-interceptor.service';
     FormsModule,
     HttpClientModule,
     APP_ROUTING,
-    MenuModule
+    MenuModule,
+    SharedModule
   ],
   providers: [
     AuthService,
     LoginActivateGuard,
     LogoutActivateGuard,
+    EditEventDeactivateGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
