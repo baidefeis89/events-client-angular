@@ -4,6 +4,7 @@ import { Ievent } from "../interfaces/ievent";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmModalComponent } from '../../shared/confirm-modal/confirm-modal.component';
+import { Iuser } from '../../user/interfaces/iuser';
 
 @Component({
   selector: 'ae-event-details',
@@ -16,6 +17,7 @@ export class EventDetailsComponent implements OnInit {
   payedMessage: string = '';
   paymentStatus: boolean = null;
   amount: number;
+  usersAttend: Iuser[];
 
   constructor(private eventService: EventService,
               private activatedRoute: ActivatedRoute,
@@ -23,6 +25,9 @@ export class EventDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.event = this.activatedRoute.snapshot.data['event'];
+    this.eventService.getUsersAttend(this.event.id).subscribe( res => {
+      this.usersAttend = res;
+    });
     this.amount = this.event.price * this.cantidad;
   }
 

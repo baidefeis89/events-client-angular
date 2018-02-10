@@ -24,3 +24,25 @@ Edit event
         <agm-marker [latitude]="event.lat" [longitude]="event.lng"></agm-marker>
     </agm-map>
 </div>
+
+<div>
+    <ul class="list-group mt-4 mb-4" id="userList">
+        <li class="list-group-item active">Attendees to the event</li>
+        <li class="list-group-item" *ngIf="usersAttend.length < 1">
+            <div class="alert alert-info" role="alert">
+                There is no assistants to the event
+            </div>    
+        </li>
+        <li class="list-group-item" *ngFor="let user of usersAttend">
+        <a [routerLink]="['/profile', user.id]">
+            <img class="rounded-circle float-left mr-3" style="width: 40px;" [src]="user.avatar" alt="">
+        </a>
+        <div>
+            <div>{{user.name}}</div>
+            <div>
+            <small>{{user.mail}}</small>
+            </div>
+        </div>
+        </li>
+    </ul>
+</div>
