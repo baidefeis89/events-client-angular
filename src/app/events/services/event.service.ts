@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Show } from '../../shared/show';
+import { Iuser } from '../../user/interfaces/iuser';
 
 @Injectable()
 export class EventService {
@@ -71,6 +72,20 @@ export class EventService {
         if (response.ok) return response.ok;
         throw response.error;
       });
+  }
+
+  getUsersAttend(idEvent: number): Observable<Iuser[]> {
+    return this.http.get(`${this.urlServer}users/event/${idEvent}`)
+      .map( (response: {ok: boolean, result?: Iuser[], error?: string}) => {
+        if (response.ok) {
+          response.result.map( user => {
+            user.avatar = `${this.urlServer}img/users/${user.avatar}`;
+          })
+          return response.result;
+        } else {
+          throw response.error;
+        }
+      })
   }
 
 }
